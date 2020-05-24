@@ -4,10 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.proyectomovil.tualcancia.R
-import com.proyectomovil.tualcancia.goToActivity
-import com.proyectomovil.tualcancia.toast
+import com.proyectomovil.tualcancia.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
+
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -30,20 +29,24 @@ class SignUpActivity : AppCompatActivity() {
 
            val email=editTextEmail.text.toString()
            val password= editTextPassword.text.toString()
+           val confirmPassword = editTextConfirmPassword.text.toString()
 
-           if(isValidEmailAndPassword(email,password)){
+           if(isValidEmail(email) && isValidPassword(password) && isValidConfirmPassword(password,confirmPassword)) {
                signUpByEmail(email,password)
-
-
            }else{
-               toast("Por favor complete todos los datos y confirme si la contraseña es correcta.")
-
+               toast("Por favor confirma que todos los datos son correctos")
            }
-           val intent = Intent(this,
-               LoginActivity::class.java )
-           //Este Intent nos permite salirnos de una vista por medio de el boton del celular retroceder.
-           intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
        }
+
+       editTextEmail.validate{
+           editTextEmail.error = if(isValidEmail(it)) null else "Por favor ingrese un Email valido"
+       }
+        editTextPassword.validate{
+            editTextPassword.error = if(isValidPassword(it)) null else "La contraseña debería contener 8 digitos compuestos por una letra mayúscula, minúscula y un número."
+        }
+        editTextConfirmPassword.validate{
+            editTextConfirmPassword.error = if(isValidConfirmPassword(editTextPassword.text.toString(),it)) null else "Las contraseñas no coinciden, por favor intenta de nuevo."
+        }
 
     }
 
@@ -62,11 +65,6 @@ class SignUpActivity : AppCompatActivity() {
             }
     }
 
-    //Validación campos vacios
-    private fun isValidEmailAndPassword(email: String, password: String):Boolean{
-        return !email.isNullOrEmpty() &&
-               !password.isNullOrEmpty() &&
-                password ==  editTextConfirmPassword.text.toString()
-    }
+
 
 }

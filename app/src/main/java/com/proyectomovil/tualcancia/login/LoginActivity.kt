@@ -3,13 +3,13 @@ package com.proyectomovil.tualcancia.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.proyectomovil.tualcancia.toast
 import com.google.firebase.auth.FirebaseAuth
-import com.proyectomovil.tualcancia.R
-import com.proyectomovil.tualcancia.goToActivity
+import com.proyectomovil.tualcancia.*
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.editTextEmail
+import kotlinx.android.synthetic.main.activity_login.editTextPassword
+import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,10 +24,11 @@ class LoginActivity : AppCompatActivity() {
               val email = editTextEmail.text.toString()
               val password= editTextPassword.text.toString()
 
-              if(IsValidEmailAndPassword(email,password)){
-                  LogInByEmail(email, password )
-
-              }
+              if(isValidEmail(email) && isValidPassword(password)) {
+                  logInByEmail(email,password)
+              }else{
+                      toast("Por favor confirma que todos los datos son correctos")
+                  }
 
 
           }
@@ -36,6 +37,13 @@ class LoginActivity : AppCompatActivity() {
             goToActivity<ForgotPasswordActivity>()
 
             overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+        }
+
+        editTextEmail.validate{
+            editTextEmail.error = if(isValidEmail(it)) null else "Por favor ingrese un Email valido"
+        }
+        editTextPassword.validate{
+            editTextPassword.error = if(isValidPassword(it)) null else "La contraseña debería contener 8 digitos compuestos por una letra mayúscula, minúscula y un número."
         }
         buttonCreateAccount.setOnClickListener {
             goToActivity<SignUpActivity>()
@@ -46,19 +54,22 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun LogInByEmail(email:String,password:String){
+    private fun logInByEmail(email:String,password:String){
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener( this){task ->
             if(task.isSuccessful){
             toast(" El usuario ha ingresado")
+
+                //Datos que vamos a capturar del usuario
+                val currentUser = mAuth.currentUser!!
+                currentUser.displayName
+                currentUser.email
+                currentUser.photoUrl
+                currentUser.isEmailVerified
             }else{
                 toast(" Un inesperado error ha ocurrido, por favor intente de nuevo")
             }
         }
 
-    }
-
-    private fun IsValidEmailAndPassword(email:String,password: String): Boolean{
-        return !email.isNullOrEmpty() && !password.isNullOrEmpty()
     }
 
 }
