@@ -1,7 +1,8 @@
-package com.proyectomovil.tualcancia
+package com.proyectomovil.tualcancia.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.proyectomovil.tualcancia.R
 
 class ForgotPasswordActivity : AppCompatActivity() {
 

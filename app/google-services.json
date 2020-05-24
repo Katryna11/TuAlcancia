@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "440149074006-2im5f3as190t3fo09c58j93rfi2c4frf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.proyectomovil.tualcancia",
+            "certificate_hash": "9bbc21885195b0d82d6decf610b6e940981e5690"
+          }
+        },
+        {
           "client_id": "440149074006-6uf52dbmoelrpr3f0h2ctmfqkmajfsn5.apps.googleusercontent.com",
           "client_type": 3
         }
