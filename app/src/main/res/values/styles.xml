@@ -13,4 +13,10 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    //Quitar flasheo al login
+    <style name="NoPreview" parent="AppTheme">
+        <item name="android:windowDisablePreview">true</item>
+
+    </style>
+
 </resources>

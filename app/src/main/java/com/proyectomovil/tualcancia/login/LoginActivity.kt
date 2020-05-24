@@ -1,5 +1,6 @@
 package com.proyectomovil.tualcancia.login
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.proyectomovil.tualcancia.toast
@@ -18,12 +19,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        if(mAuth.currentUser == null){
-            toast("Nope")
-        }else {
-            toast("Yep")
-            mAuth.signOut()
-        }
+
           buttonLogIn.setOnClickListener {
               val email = editTextEmail.text.toString()
               val password= editTextPassword.text.toString()
@@ -35,8 +31,17 @@ class LoginActivity : AppCompatActivity() {
 
 
           }
-        textViewForgotPassword.setOnClickListener{goToActivity<ForgotPasswordActivity>()}
-        buttonCreateAccount.setOnClickListener { goToActivity<SignUpActivity>() }
+
+        textViewForgotPassword.setOnClickListener{
+            goToActivity<ForgotPasswordActivity>()
+
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+        }
+        buttonCreateAccount.setOnClickListener {
+            goToActivity<SignUpActivity>()
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+
+        }
 
 
     }

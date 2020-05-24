@@ -22,6 +22,8 @@ class SignUpActivity : AppCompatActivity() {
             goToActivity<LoginActivity> {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+
 
         }
        buttonSignUp.setOnClickListener {
@@ -31,6 +33,7 @@ class SignUpActivity : AppCompatActivity() {
 
            if(isValidEmailAndPassword(email,password)){
                signUpByEmail(email,password)
+
 
            }else{
                toast("Por favor complete todos los datos y confirme si la contraseña es correcta.")
@@ -48,6 +51,11 @@ class SignUpActivity : AppCompatActivity() {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     toast("Un Email te ha sido enviado. Por favor, confirmar antes de ingresar.")
+                    goToActivity<LoginActivity> {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    }
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+
                 } else {
                     toast("Un inesperado error ocurrió por favor intentalo de nuevo.")
                 }
