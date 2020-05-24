@@ -104,12 +104,13 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="84dp"
-            android:layout_height="167dp"
+            android:layout_width="94dp"
+            android:layout_height="164dp"
             app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.457"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/tualcancia" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
