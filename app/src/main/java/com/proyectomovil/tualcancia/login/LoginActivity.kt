@@ -56,17 +56,15 @@ class LoginActivity : AppCompatActivity() {
 
     private fun logInByEmail(email:String,password:String){
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener( this){task ->
-            if(task.isSuccessful){
-            toast(" El usuario ha ingresado")
+            if(task.isSuccessful) {
+                //Verificación de si el usuario ha confirmado el email para poder hacer loguearse
+                if (mAuth.currentUser!!.isEmailVerified) {
+                    toast(" El usuario ha ingresado.")
+                } else {
+                    toast(" El usuario debe confirmar el email primero.")
+                }
 
-                //Datos que vamos a capturar del usuario
-                val currentUser = mAuth.currentUser!!
-                currentUser.displayName
-                currentUser.email
-                currentUser.photoUrl
-                currentUser.isEmailVerified
-            }else{
-                toast(" Un inesperado error ha ocurrido, por favor intente de nuevo")
+            }else{toast(" Un inesperado error ha ocurrido, por favor intente de nuevo")
             }
         }
 
