@@ -17,9 +17,11 @@ class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedList
     private val mAuth:FirebaseAuth by lazy {FirebaseAuth.getInstance()}
     private val mGoogleApiClient: GoogleApiClient by lazy {getGoogleApiClient()}
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
 
 
           buttonLogIn.setOnClickListener {

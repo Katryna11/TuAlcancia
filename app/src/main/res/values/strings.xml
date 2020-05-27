@@ -15,4 +15,9 @@
     <string name="login_go_login">Regresar al inicio de sesión</string>
 
 
+    //Botton Navigation Menu
+
+    <string name="options_menu_log_out">Cerrar sesión</string>
+
+
 </resources>
