@@ -30,6 +30,9 @@ class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedList
 
               if(isValidEmail(email) && isValidPassword(password)) {
                   logInByEmail(email,password)
+                  goToActivity<MainActivity>()
+
+                  overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
               }else{
                       toast("Por favor confirma que todos los datos son correctos")
                   }
