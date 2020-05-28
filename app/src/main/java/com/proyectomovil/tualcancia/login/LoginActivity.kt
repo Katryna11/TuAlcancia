@@ -1,12 +1,15 @@
 package com.proyectomovil.tualcancia.login
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.proyectomovil.tualcancia.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.editTextEmail
@@ -16,6 +19,7 @@ class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedList
 
     private val mAuth:FirebaseAuth by lazy {FirebaseAuth.getInstance()}
     private val mGoogleApiClient: GoogleApiClient by lazy {getGoogleApiClient()}
+    private val RC_GOOGLE_SIGN_IN = 99
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +62,12 @@ class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedList
 
         }
 
+        buttonLogInGoogle.setOnClickListener {
+            val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
+            startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN )
+
+        }
+
 
     }
 
@@ -70,6 +80,13 @@ class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedList
             .enableAutoManage(this,this)
             .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
             .build()
+    }
+
+    private fun loginByGoogleAccountIntoFirebase(googleAccount : GoogleSignInAccount){
+        val credential = GoogleAuthProvider.getCredential(googleAccount.idToken, null)
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this){
+            toast("Accedido por Google")
+        }
     }
 
     private fun logInByEmail(email:String,password:String){
@@ -86,6 +103,18 @@ class LoginActivity : AppCompatActivity(),GoogleApiClient.OnConnectionFailedList
             }
         }
 
+    }
+
+    override  fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_GOOGLE_SIGN_IN){
+            val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+            if(result.isSuccess){
+                val account = result.signInAccount
+                loginByGoogleAccountIntoFirebase(account!!)
+            }
+        }
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
