@@ -18,6 +18,19 @@
     //Botton Navigation Menu
 
     <string name="options_menu_log_out">Cerrar sesión</string>
+    <string name="add_alcancia">Agregar Valor</string>
+    <string name="diez_mil">Diez Mil</string>
+    <string name="diez">10000</string>
+    <string name="veinte_mil">Veinte Mil</string>
+    <string name="veinte">20000</string>
+    <string name="cincuenta_mil">Cincuenta mil</string>
+    <string name="cincuenta">50000</string>
+    <string name="cien">100000</string>
+    <string name="empty_not_saved">No se guardo el valor</string>
+    <string name="ahorro">Total Ahorrado</string>
+    <string name="dinero">Dinero</string>
+    <string name="romper_alcancia">Romper Alcancia</string>
+    <string name="rompe_alcancia">Haz roto la alcancia!!!</string>
 
 
 </resources>
